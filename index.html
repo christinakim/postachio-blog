@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Christina Kim</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="https://dl.dropbox.com/s/a3f86i8b5tlik2d/main.css?dl=0" />
+		<link rel="shortcut icon" href="https://dl.dropbox.com/s/0qh56npc1290b4w/favicon.ico?dl=0"/>
+	</head>
+	<body>
+	    <!-- Hi there - happy inspecting ¯\_(ツ)_/¯ -->
+
+		<div class="container">
+		<!-- Header -->
+
+			<section id="header">
+				<header class="major uppercase font-weight-bold">
+					<h1><a href="{{ site.base_url }}"><strong>Christina Kim</strong></a></h1>
+				</header>
+				<div class="icons center">
+					<ul class="icons">
+					     <li><a href="/blog" class="lowercase blog">writing</a></li>
+
+						{% for page in pages %}
+    						<li><a href="{{ page.permalink }}" class="{{ set_active(page.permalink) }} lowercase">{{ page.title }}</a></li>
+  						{% endfor %}
+					</ul>
+				</div>
+			</section>
+			{% if is_home and homepage %}
+			   
+                <section id="homepage">
+                    <div class="postcontent_single" itemprop="articleBody" data-type-cleanup="true">
+			      {{ homepage.content }}
+			      </div>
+			      </section>
+			{% endif%}
+			<!-- Fnord Area -->
+			   
+			{%if post.type == 'page' and post.title == 'fnord' %}
+			<main class="page Fnord">
+
+                <section id="fnord">
+                    <div class="postcontent_single" itemprop="articleBody" data-type-cleanup="true">
+			      {{ post.content }}
+			      {% if post.type == 'link' %}
+			        <p class="link_display"><a href="{{ post.url }}"><i class="icon-link"></i> {{ post.url }}</a></p>
+			      {% endif %}
+			      </div>
+			    </section>
+		    </main>
+			{% endif %}
+			 <!-- Projects Area -->
+			   
+			{%if post.type == 'page' and post.title == 'projects' %}
+			<main class="page Projects">
+                <section id='projects'>
+                    <div class="postcontent_single" itemprop="articleBody" data-type-cleanup="true">
+			      {{ post.content }}
+			      {% if post.type == 'link' %}
+			        <p class="link_display"><a href="{{ post.url }}"><i class="icon-link"></i> {{ post.url }}</a></p>
+			      {% endif %}
+			      </div>
+			    </section>
+			{% endif %}
+			
+			
+
+			<!-- Posts Area -->
+		
+			<section id="posts">
+
+			{%if is_blog or is_tag%}
+
+			<main class="posts_area">
+			  <!-- Post list -->
+			  {% if tag %}
+			    <h4 class="tag_header"><span class="separator">&#8226;</span> Showing all posts tagged as {{ tag }} <span class="separator">&#8226;</span></h4>
+			   {% endif %}
+			 
+			    {% if posts %}
+			      {% for post in posts %}
+			      	{% if post.type == 'post' %}
+
+			      
+			 
+			        <article class="post" role="article" itemscope itemtype="http://schema.org/Article">
+			          <h1 class="title"><a href="{{ post.permalink }}#post_start">{{ post.title }}</a></h1>
+			          <div class="post_meta">
+			            <time class="post_date" datetime="{{ post.created_at|format_date }}" itemprop="datePublished">{{ post.created_at|format_date }}</time>
+			          </div>
+			          <div class="postcontent_list" itemprop="articleBody" data-type-cleanup="true">
+			          {{ post.content }}
+			          {% if post.type == 'link' %}
+			            <p class="link_display"><a href="{{ post.url }}"><i class="icon-link"></i> {{ post.url }}</a></p>
+			          {% endif %}
+			          <div class="after_post"><a href="{{ post.permalink }}#post_start">Read More &raquo;</a></div>
+			          </div>
+			        </article>
+			 	    {% endif %}
+
+			      {% endfor %}
+			      <div class="pagination">
+			          {% if pagination.prev %}<a href="{{ pagination.prev }}" class="pagination_prev"><i class="icon-hand-left"></i> Prev</a>{% endif %}
+			          {% if pagination.next %}<a href="{{ pagination.next }}" class="pagination_next">Next <i class="icon-hand-right"></i></a>{% endif %}
+			      </div>
+			    {% endif %}
+			    
+			 
+			  {% else %}
+			  <!-- Single post -->
+			    {% if post.type == 'post' %}
+
+			    <article class="post" id="post_start" role="article" itemscope itemtype="http://schema.org/Article">
+			      <h1 class="title">{{ post.title }}</h1>
+			      <div class="post_meta">
+			        <time class="post_date" datetime="{{ post.created_at|format_date }}" itemprop="datePublished">{{ post.created_at|format_date }}</time>
+			        {% if post.tags %}
+			        <span class="separator">&#8226;</span>
+			        <div class="post_tags">
+			          <a href="/tag/{{ tag }}">{{ post.tags|format_tags(delimiter=', ', humanize=True, link=True) }}</a>
+			        </div>
+			        {% endif %}
+			      </div>
+			      <div class="postcontent_single" itemprop="articleBody" data-type-cleanup="true">
+			      {{ post.content }}
+			      {% if post.type == 'link' %}
+			        <p class="link_display"><a href="{{ post.url }}"><i class="icon-link"></i> {{ post.url }}</a></p>
+			      {% endif %}
+			      </div>
+			      <div class="after_post">{{ theme.social.bar }}</div>
+			    </article>
+
+			    {% endif %}
+
+			 			
+			  	</main>
+
+			  {% endif %}
+			  	</section>
+
+
+			 
+			 <!-- Footer -->
+			<section id="footer">
+				<footer>
+					<ul class="icons">
+						<li><a href="https://www.twitter.com/christinahkim"><i class="icon alt fab fa-twitter"><span class="label">Twitter</span></i></a></li>
+						<li><a href="https://www.facebook.com/538092824"><i class="icon alt fab fa-facebook"><span class="label">Facebook</span></i></a></li>
+						<li><a href="https://www.linkedin.com/in/chkim1"><i class="icon alt fab fa-linkedin"><span class="label">LinkedIn</span></i></a></li>
+						<li><a href="https://www.github.com/christinakim"><i class="icon alt fab fa-github"><span class="label">Github</span></i></a></li>
+						<li><a href="mailto:christinahkim1@gmail.com"><i class="icon alt fas fa-envelope"><span class="label">Email</span></i></a></li>
+					</ul>
+				</footer>
+			</section>
+
+
+		
+		<!-- Scripts -->
+		<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	</body>
+</html>
