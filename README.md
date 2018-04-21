@@ -1,2 +1,4 @@
 # postachio-blog
-template + css for postachio blog
+personlized template + css for postachio blog
+
+[christina.kim](christina.kim)
